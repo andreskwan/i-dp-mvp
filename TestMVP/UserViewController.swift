@@ -6,7 +6,7 @@ class UserViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
 
-    fileprivate let userPresenter = UserPresenter(userService: UserService())
+    fileprivate let userPresenter: Presenter = UserPresenter(userService: UserService())
     fileprivate var usersToDisplay = [UserViewData]()
 
     override func viewDidLoad() {
@@ -14,8 +14,8 @@ class UserViewController: UIViewController {
         tableView?.dataSource = self
         activityIndicator?.hidesWhenStopped = true
 
-        userPresenter.attachView(self)
-        userPresenter.getUsers()
+        userPresenter.attachView(view: self)
+        userPresenter.getItems()
     }
 
 }
@@ -48,7 +48,7 @@ extension UserViewController: UserView {
         activityIndicator?.stopAnimating()
     }
 
-    func setUsers(_ users: [UserViewData]) {
+    func setUsers(users: [UserViewData]) {
         usersToDisplay = users
         tableView?.isHidden = false
         emptyView?.isHidden = true;

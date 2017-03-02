@@ -1,20 +1,6 @@
-
 import Foundation
 
-struct UserViewData{
-    
-    let name: String
-    let age: String
-}
-
-protocol UserView: NSObjectProtocol {
-    func startLoading()
-    func finishLoading()
-    func setUsers(_ users: [UserViewData])
-    func setEmptyUsers()
-}
-
-class UserPresenter {
+class UserPresenter : Presenter {
     fileprivate let userService:UserService
     weak fileprivate var userView : UserView?
     
@@ -24,7 +10,7 @@ class UserPresenter {
     
     //programming to a supertype 
     //open close principle
-    func attachView(_ view:UserView){
+    func attachView(view:UserView){
         userView = view
     }
     
@@ -36,7 +22,7 @@ class UserPresenter {
     //how getUsers() is tested? if it contains a userView an instance of UIViewController?
     //yes, but UserView is a Protocol(NSObjectProtocol) so anything that conforms to it can be used
     //instead. excelent!
-    func getUsers(){
+    func getItems(){
         self.userView?.startLoading()
         userService.getUsers{ [weak self] users in
             self?.userView?.finishLoading()
@@ -46,7 +32,7 @@ class UserPresenter {
                 let mappedUsers = users.map{
                     return UserViewData(name: "\($0.firstName) \($0.lastName)", age: "\($0.age) years")
                 }
-                self?.userView?.setUsers(mappedUsers)
+                self?.userView?.setUsers(users: mappedUsers)
             }
             
         }
