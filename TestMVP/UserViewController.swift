@@ -21,19 +21,21 @@ class UserViewController: UIViewController {
 }
 
 extension UserViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         return usersToDisplay.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "UserCell")
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.subtitle,
+                                   reuseIdentifier: "UserCell")
         let userViewData = usersToDisplay[indexPath.row]
         cell.textLabel?.text = userViewData.name
         cell.detailTextLabel?.text = userViewData.age
-        cell.textLabel
+        //        cell.textLabel
         return cell
     }
-
 }
 
 extension UserViewController: UserView {

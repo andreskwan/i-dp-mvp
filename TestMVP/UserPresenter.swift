@@ -22,6 +22,8 @@ class UserPresenter {
         self.userService = userService
     }
     
+    //programming to a supertype 
+    //open close principle
     func attachView(_ view:UserView){
         userView = view
     }
@@ -30,6 +32,10 @@ class UserPresenter {
         userView = nil
     }
     
+    //ViewController conforms UserView:NSObjectProtocol
+    //how getUsers() is tested? if it contains a userView an instance of UIViewController?
+    //yes, but UserView is a Protocol(NSObjectProtocol) so anything that conforms to it can be used
+    //instead. excelent!
     func getUsers(){
         self.userView?.startLoading()
         userService.getUsers{ [weak self] users in
