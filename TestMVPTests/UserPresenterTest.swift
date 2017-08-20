@@ -3,20 +3,21 @@ import XCTest
 
 class UserServiceMock: UserService {
     fileprivate let users: [User]
+    
     init(users: [User]) {
         self.users = users
+        
     }
-    override func getUsers(_ callBack: ([User]) -> Void) {
+    override func getUsers(_ callBack: @escaping ([User]) -> Void) {
         callBack(users)
     }
-
 }
 
 class UserViewMock : NSObject, UserView{
     var setUsersCalled = false
     var setEmptyUsersCalled = false
 
-    func setUsers(_ users: [UserViewData]) {
+    func setUsers(users: [UserViewData]) {
         setUsersCalled = true
     }
 
@@ -31,12 +32,19 @@ class UserViewMock : NSObject, UserView{
     }
 
 }
-class UserPresenterTest: XCTestCase {
 
+class testUserPresenter: XCTestCase {
+//    var userServiceMock : UserService
     let emptyUsersServiceMock = UserServiceMock(users:[User]())
 
-    let towUsersServiceMock = UserServiceMock(users:[User(firstName: "firstname1", lastName: "lastname1", email: "first@test.com", age: 30),
-                                               User(firstName: "firstname2", lastName: "lastname2", email: "second@test.com", age: 24)])
+    let towUsersServiceMock = UserServiceMock(users:[User(firstName: "firstname1",
+                                                          lastName: "lastname1",
+                                                          email: "first@test.com",
+                                                          age: 30),
+                                                     User(firstName: "firstname2",
+                                                          lastName: "lastname2",
+                                                          email: "second@test.com",
+                                                          age: 24)])
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -51,10 +59,10 @@ class UserPresenterTest: XCTestCase {
         //given
         let userViewMock = UserViewMock()
         let userPresenterUnderTest = UserPresenter(userService: emptyUsersServiceMock)
-        userPresenterUnderTest.attachView(userViewMock)
+        userPresenterUnderTest.attachView(view: userViewMock)
 
         //when
-        userPresenterUnderTest.getUsers()
+        userPresenterUnderTest.getItems()
 
         //verify
         XCTAssertTrue(userViewMock.setEmptyUsersCalled)
@@ -64,10 +72,10 @@ class UserPresenterTest: XCTestCase {
         //given
         let userViewMock = UserViewMock()
         let userPresenterUnderTest = UserPresenter(userService: towUsersServiceMock)
-        userPresenterUnderTest.attachView(userViewMock)
+        userPresenterUnderTest.attachView(view: userViewMock)
 
         //when
-        userPresenterUnderTest.getUsers()
+        userPresenterUnderTest.getItems()
 
         //verify
         XCTAssertTrue(userViewMock.setUsersCalled)

@@ -9,7 +9,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F0E63120-AB9E-422D-B6FE-BEC08DA26539",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "78D166ED4B7E7C7CD4E5AE56D7B716C667346205" : "iOS-mvp-sample\/",
+    "78D166ED4B7E7C7CD4E5AE56D7B716C667346205" : "i-dp-gui-mvp\/",
     "2808D710DE62DB21B70016265C1C0C4B5DF2CDB5" : "..\/.."
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "TestMVP",
